@@ -21,7 +21,6 @@ addInput.addEventListener("click", (event) => {
     const text = ""
     const position = { x: 50, y: 50 };
     const data = { color, text, position };
-    //const id = counterID;
 
     database.createData(data)
       .then((id) => { 
@@ -31,8 +30,6 @@ addInput.addEventListener("click", (event) => {
         console.log(error);
       });
 });
-
-
 
 function createNote(id, position, text, color) {
   let newNote = document.createElement("div");
@@ -62,7 +59,6 @@ function createNote(id, position, text, color) {
     updateNote(id, { text: updatedText });
   });
 
-  //noteHeader.style.background = noteColorInput.value;
   mainElement.appendChild(newNote);
   counterID++;
 }
@@ -91,15 +87,12 @@ document.addEventListener("mousedown", (event) => {
       x: event.clientX,
       y: event.clientY,
     };
-
     let current = event.target.closest(".note");
-
     note = {
       dom: current,
       x: current.getBoundingClientRect().left,
       y: current.getBoundingClientRect().top,
     };
-
     current.style.cursor = "grabbing";
     current.style.zIndex = zIndexValue;
     zIndexValue++;
@@ -110,20 +103,18 @@ document.addEventListener("mousemove", (event) => {
   if (note.dom == null) {
     return;
   }
-
   let currentCursor = {
     x: event.clientX,
     y: event.clientY,
   };
-
   let distance = {
     x: currentCursor.x - cursor.x,
     y: currentCursor.y - cursor.y,
   };
-
   note.dom.style.left = note.x + distance.x + "px";
   note.dom.style.top = note.y + distance.y + "px";
 });
+
 document.addEventListener("mouseup", (event) => {
   if (note.dom) {
     const noteId = parseInt(note.dom.id.split("-")[1]);
@@ -142,7 +133,6 @@ async function openData() {
     console.error("Error open: " + error);
   });
 }
-
 async function uploadNotes() {
   try {
     const notes = await database.readAllData();
@@ -153,7 +143,6 @@ async function uploadNotes() {
     console.error("Error upload:", error);
   }
 }
-
 async function updateNote(id, data) {
   try {
     console.log(`Actualizando nota con ID: ${id}`, data); // Debug: 
@@ -162,7 +151,6 @@ async function updateNote(id, data) {
     console.error("Error update:", error);
   }
 }
-
 async function deleteNote(id) {
   try {
     await database.deleteData(id);

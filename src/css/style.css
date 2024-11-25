@@ -4,6 +4,28 @@
   box-sizing: border-box;
 }
 
+header{
+  background: linear-gradient(to bottom, rgba(84, 25, 223, 0.829), rgb(207, 127, 7));
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 20px;
+  height: 10vh;
+  color: rgb(238, 236, 231);
+  font-weight: bold;
+  font-size: 40px;
+}
+.return-button {
+  padding: 8px 10px;
+  border: black 1px solid;
+  border-radius: 5px;
+  background: linear-gradient(to right, rgb(183, 25, 223), rgb(207, 127, 7));
+  font-weight: bold;
+   font-size: 15px;
+   color: rgb(238, 236, 231);
+  cursor: pointer
+}
+
 :root{
   --base-color: #fffafa; /* 60% */
   --primary-color: #673AB7; /* 30% (important areas) */

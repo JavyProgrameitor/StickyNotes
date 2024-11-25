@@ -22,38 +22,29 @@ export class DatabaseStickyNotes {
         this.db = event.target.result;
         resolve();
       };
-
       request.onerror = (event) => {
         reject(event.target.error);
       };
-
       request.onupgradeneeded = (event) => {
         let db = event.target.result;
         if (!db.objectStoreNames.contains(STORE_NAME)) {
           const objectStore = db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
-
-
         }
       };
-
     });
   }
-
   createData(data) {
     if (!this.db) {
-      throw new Error("La base de datos no está abierta.");
+      throw new Error("The database is not open");
     }
-
     return new Promise((resolve, reject) => {
       let transaction = this.db.transaction([STORE_NAME], "readwrite");
       let objectStore = transaction.objectStore(STORE_NAME);
       let request = objectStore.add(data);
       request.onsuccess = (event) => {
-            // Aquí capturamos el ID asignado por IndexedDB
       const id = event.target.result;
-      resolve(id); // Devolvemos el ID al resolver la promesa
+      resolve(id); 
       };
-
       request.onerror = (event) => {
         reject(event.target.error);
       };
@@ -62,7 +53,7 @@ export class DatabaseStickyNotes {
 
   readData(id) {
     if (!this.db) {
-      throw new Error("La base de datos no está abierta.");
+      throw new Error("The database is not open.");
     }
 
     return new Promise((resolve, reject) => {
@@ -75,7 +66,7 @@ export class DatabaseStickyNotes {
         if (data) {
           resolve(data);
         } else {
-          reject(new Error("El objeto con el id: " + id + ", no se encontró en la base de datos."));
+          reject(new Error("The object with the specified ID: " + id + ", was not found in the database."));
         }
       };
 
@@ -87,7 +78,7 @@ export class DatabaseStickyNotes {
 
   readAllData() {
     if (!this.db) {
-      throw new Error("La base de datos no está abierta.");
+      throw new Error("The database is not open.");
     }
 
     return new Promise((resolve, reject) => {
@@ -100,7 +91,7 @@ export class DatabaseStickyNotes {
         if (data) {
           resolve(data);
         } else {
-          reject(new Error("Error al obtener todos los datos"));
+          reject(new Error("Error get data"));
         }
       };
 
@@ -112,7 +103,7 @@ export class DatabaseStickyNotes {
 
   updateData(id, newData) {
     if (!this.db) {
-      throw new Error("La base de datos no está abierta.");
+      throw new Error("The database is not open.");
     }
 
     return new Promise((resolve, reject) => {
@@ -134,7 +125,7 @@ export class DatabaseStickyNotes {
             reject(event.target.error);
           };
         } else {
-          reject(new Error("El objeto con el ID especificado no se encontró en la base de datos."));
+          reject(new Error("The object with the specified ID was not found in the database."));
         }
       };
 
@@ -147,7 +138,7 @@ export class DatabaseStickyNotes {
 
   deleteData(id) {
     if (!this.db) {
-      throw new Error("La base de datos no está abierta.");
+      throw new Error("The database is not open.");
     }
 
     return new Promise((resolve, reject) => {
